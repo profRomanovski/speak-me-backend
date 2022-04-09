@@ -10,7 +10,7 @@ namespace App\Virtual\Models;
  *     )
  * )
  */
-class User
+class Category
 {
     /**
      * @OA\Property(
@@ -27,8 +27,8 @@ class User
     /**
      * @OA\Property(
      *      title="Name",
-     *      description="Name of the new user",
-     *      example="Roman Gurniy"
+     *      description="Name of the new category",
+     *      example="Guccci"
      * )
      *
      * @var string
@@ -37,23 +37,12 @@ class User
 
     /**
      * @OA\Property(
-     *      title="Email",
-     *      description="Email of the new user",
-     *      example="roman@gmail.com"
+     *      title="Image",
+     *      description="Path to image on the server",
+     *      example="/tmp/uploads/6244ca3e9c790_logo-nike-1971.png"
      * )
      *
      * @var string
      */
-    public $email;
-
-    /**
-     * @OA\Property(
-     *      title="Password",
-     *      description="Password of the new user",
-     *      example="secret123A"
-     * )
-     *
-     * @var string
-     */
-    public $password;
+    public $image;
 }

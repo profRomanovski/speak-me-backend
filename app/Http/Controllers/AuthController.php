@@ -8,6 +8,36 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    /**
+     * @OA\Post(
+     *      path="/api/create-account",
+     *      operationId="createUser",
+     *      tags={"Users"},
+     *      summary="Create new user",
+     *      description="Returns user data",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/CreateUserRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
     public function createAccount(Request $request)
     {
         $attr = $request->validate([
@@ -26,7 +56,36 @@ class AuthController extends Controller
             'token' => $user->createToken('tokens')->plainTextToken
         ]);
     }
-
+    /**
+     * @OA\Post(
+     *      path="/api/login",
+     *      operationId="loginUser",
+     *      tags={"Users"},
+     *      summary="Login user",
+     *      description="Returns user tocken",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/LoginUserRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/UserToken")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
     public function login(Request $request)
     {
         $attr = $request->validate([
@@ -44,7 +103,34 @@ class AuthController extends Controller
     }
 
     /**
-     * @return string[]
+     * @OA\Post(
+     *      path="/api/sign-out",
+     *      operationId="logoutUser",
+     *      tags={"Users"},
+     *      summary="Logout user",
+     *      description="Returns success message",
+     *      security={{"bearer_token":{}}},
+
+     *   @OA\Response(
+     *      response=200,
+     *       description="Success",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
      */
     public function logout()
     {
@@ -55,6 +141,33 @@ class AuthController extends Controller
         ];
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/profile",
+     *      operationId="getUserData",
+     *      tags={"Users"},
+     *      summary="Get user information",
+     *      description="Returns user data",
+     *      security={{"bearer_token":{}}},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
     public function userData()
     {
         return auth()->user();
