@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,8 @@ Route::post('/create-account', [AuthController::class, 'createAccount']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/upload', [UploadController::class, 'upload']);
 Route::get('/categories', [CategoryController::class, 'getList']);
+Route::get('/products', [ProductController::class, 'getList']);
+Route::post('/product-create', [ProductController::class, 'create']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', [AuthController::class, 'userData']);
